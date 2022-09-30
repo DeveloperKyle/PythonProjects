@@ -1,14 +1,14 @@
 import random
 
-# Global variable
+# Global variables
 MAX_LINES = 3
-MIN_LINES = 1
 MAX_BET = 100
 MIN_BET = 1
 
 ROWS = 3
 COLS = 3
 
+# Total number of each symbol available to select from.
 symbol_count = {
     "A": 2,
     "B": 4,
@@ -16,6 +16,7 @@ symbol_count = {
     "D": 8
 }
 
+# How much each symbol is valued at if selected. 
 symbol_value = {
     "A": 5,
     "B": 4,
@@ -23,6 +24,7 @@ symbol_value = {
     "D": 2
 }
 
+# Function to check the amount the user won from the symbols selected if they are all the same on a line. 
 def check_winnings(columns, lines, bet, values):
     winnings = 0
     winning_lines = []
@@ -38,6 +40,8 @@ def check_winnings(columns, lines, bet, values):
 
     return winnings, winning_lines
 
+# Function to select out of the total symbols that are available and decrease that specific symbol total by one.
+# For example, If symbol "B" is selected, the total available for that symbol will go from a total of 4 to a total of 3 left for the program to select from.
 def get_slot_machine_spin(rows, cols, symbols):
     all_symbols = []
     for symbol, symbol_count in symbols.items():
@@ -57,6 +61,7 @@ def get_slot_machine_spin(rows, cols, symbols):
     
     return columns
 
+# Function to display how the slot machine output will appear to the user. 
 def print_slot_machine(columns):
     for row in range(len(columns[0])):
         for i, column in enumerate (columns):
@@ -68,10 +73,6 @@ def print_slot_machine(columns):
         print()
 
 # Function to get the dollar amount the user wants to play the slot machine with.
-# 1st if/else. Checks if user entered a digit. If digit was entered then converts to integer. 
-# Else not digit, program displays "Please enter a number."
-# 2nd if/else. Checks if user amount entered is greater than 0. If number was greater, while loop breaks and saves amount. 
-# Else not greater, program displays "Amount must be greater than 0." and asks user for amount again. 
 def deposit():
     while True:
         amount = input("What amount would you like to deposit? $")
@@ -101,6 +102,7 @@ def get_number_of_lines():
     
     return lines
 
+# Function to get the amount that the user wants to bet on for each line. 
 def get_bet():
     while True:
         amount = input("What amount would you like to bet on each line? $")
@@ -115,7 +117,7 @@ def get_bet():
     
     return amount
 
-# Test function for program
+# Function to operate the slot machine by passing in other functions. Game will continue to operate until user's total bet is more than their available balance. 
 def spin(balance):
     lines = get_number_of_lines()
     while True:
@@ -136,6 +138,7 @@ def spin(balance):
     print(f"You won on lines:", *winning_lines)
     return winnings - total_bet
 
+# Function to update the balance from the game and asks if user wants to play again or quit. 
 def main():
     balance = deposit()
     while True:
